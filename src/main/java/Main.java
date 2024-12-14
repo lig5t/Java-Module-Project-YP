@@ -6,19 +6,32 @@ public class Main {
         Car[] cars = new Car[3];
 
         for (int i = 0; i < 3; i++) {
-            System.out.print("Введите название автомобиля #" + (i + 1) + ": ");
-            String name = scanner.nextLine();
+            String name;
+            while (true) {
+                System.out.print("Введите название автомобиля #" + (i + 1) + ": ");
+                name = scanner.nextLine().trim();
+
+                if (!name.isEmpty()) {
+                    break;
+                } else {
+                    System.out.println("Ошибка: название автомобиля не должно быть пустым. Попробуйте снова.");
+                }
+            }
 
             double speed;
             while (true) {
                 System.out.print("Введите скорость автомобиля #" + (i + 1) + " (от 0 до 250): ");
-                speed = scanner.nextDouble();
-                scanner.nextLine(); //
+                String input = scanner.nextLine();
 
-                if (speed > 0 && speed <= 250) {
-                    break; //
-                } else {
-                    System.out.println("Ошибка: скорость должна быть > 0 и <= 250. Попробуйте снова.");
+                try {
+                    speed = Double.parseDouble(input);
+                    if (speed > 0 && speed <= 250) {
+                        break;
+                    } else {
+                        System.out.println("Ошибка: скорость должна быть > 0 и <= 250. Попробуйте снова.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Ошибка: введено некорректное значение. Попробуйте снова.");
                 }
             }
 
